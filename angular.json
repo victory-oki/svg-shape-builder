@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "kudy": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "kudy"
+    }
+  },
+  "defaultProject": "kudy",
+  "cli": {
+    "analytics": "74a32fd9-ccb7-4e97-b8b8-9f76f667e11f"
+  }
 }
