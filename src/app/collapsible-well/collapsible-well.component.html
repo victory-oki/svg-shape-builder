@@ -1,0 +1,15 @@
+<div class="well">
+    <header class="well__header">
+        <h4 class="well__title">SHAPE {{title}}</h4>
+        <div class="well__icon" [class.show] = "isVisible" (click) = "toggleVisibility()">
+            <svg width="20" height="34" viewBox="0 0 10 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0.496428 1.04156C0.222138 1.31585 0.221896 1.76049 0.495886 2.03508L3.15663 4.70163C3.19558 4.74067 3.19558 4.80387 3.15663 4.8429L0.495887 7.50945C0.221896 7.78404 0.222138 8.22868 0.496428 8.50297C0.770931 8.77747 1.21599 8.77747 1.49049 8.50297L4.51408 5.47937C4.90461 5.08885 4.90461 4.45568 4.51408 4.06516L1.49049 1.04156C1.21599 0.767062 0.77093 0.767061 0.496428 1.04156Z"
+                  fill="#fff" />
+            </svg>
+        </div>
+    </header>
+    <div class="well__content" *ngIf = "isVisible">
+        <ng-content></ng-content>
+    </div>
+</div>

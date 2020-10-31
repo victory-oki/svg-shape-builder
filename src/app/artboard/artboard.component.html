@@ -1,5 +1,5 @@
 <div class="artboard">
-    <h5 class="artboard__name">SHAPE 1</h5>
+    <h5 class="artboard__name">SHAPE {{title}}</h5>
     <svg viewBox="0 0 100 100" height="100%" width="100%">
 
         <g class="vertical-axis">
@@ -50,8 +50,8 @@
             <text x="0" y="49" font-size="2">X</text>
             <text x="50.5" y="3" font-size="2">Y</text>
         </g>
-        <g class="points">
-            <circle class="point" [attr.cx]="point.x" [attr.cy]="point.y" r="1.5" *ngFor = "let point of shapePoints$ | async"></circle>
+        <g class="points" >
+            <circle class="point" [attr.cx]="point.x" [attr.cy]="point.y" r="1.5" *ngFor = "let point of shapePoints$ | async" (click)="selectPoint(point)"></circle>
         </g>
         <g id="canvas" #canvas></g>
         <!-- <circle class="circle" cx="50" cy="50" r="20" class="path"></circle>

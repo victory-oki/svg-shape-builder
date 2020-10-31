@@ -1,0 +1,21 @@
+.well{
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2.5rem;
+    }
+    &__title{
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+        color: #fff;
+    }
+    &__icon{
+        cursor: pointer;
+        & svg{
+            transition: all .3s ease-in;
+        }
+        &.show svg{
+            transform: rotate(90deg);
+        }
+    }
+}

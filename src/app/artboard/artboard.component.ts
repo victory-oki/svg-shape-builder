@@ -9,6 +9,7 @@ import { Ipoints } from '../shape-builder/shape-builder.component';
 })
 export class ArtboardComponent implements OnInit {
   @ViewChild('canvas') canvas: ElementRef<SVGGElement>;
+  @Input() title
   @Input() shapePoints$:BehaviorSubject<Ipoints[]>
   @Input() shape$:BehaviorSubject<any>
   @Input() currentShape$:BehaviorSubject<string>
@@ -24,5 +25,7 @@ export class ArtboardComponent implements OnInit {
       }
     )
   }
-
+  selectPoint(point){
+    console.log(point)
+  }
 }

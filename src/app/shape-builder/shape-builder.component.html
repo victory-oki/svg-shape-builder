@@ -1,11 +1,13 @@
 <main class="container">
     <section class="canvas">
         <div class="canvas__container">
-            <app-artboard [shapePoints$]="artboard.shapePoints$" [shape$]="artboard.shape$" [currentShape$]="artboard.currentShape$" *ngFor = "let artboard of artboards"></app-artboard> 
+            <app-artboard [shapePoints$]="artboard.shapePoints$" [shape$]="artboard.shape$" [currentShape$]="artboard.currentShape$" [title] = "i + 1" *ngFor = "let artboard of artboards; let i = index"></app-artboard> 
         </div>
     </section>
     <section class="controls">
-        <app-controls [shapePoints$]="artboard.shapePoints$" [shape$]="artboard.shape$" [currentShape$]="artboard.currentShape$" *ngFor = "let artboard of artboards"></app-controls>
+        <collapsible-well *ngFor = "let artboard of artboards; let i = index" [title] = "i + 1">
+            <app-controls [shapePoints$]="artboard.shapePoints$" [shape$]="artboard.shape$" [currentShape$]="artboard.currentShape$"></app-controls>
+        </collapsible-well>
         <div class="add-btn" (click)="addNewArtBoard()">
             <span class="item__icon">
               <svg

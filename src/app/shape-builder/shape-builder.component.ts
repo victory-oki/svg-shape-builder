@@ -28,6 +28,7 @@ export class ShapeBuilderComponent implements OnInit {
     let artboard = this.createNewArtBoard()
     this.artboards.push(artboard)
   }
+
   createNewArtBoard():IArtboard{
     return {
       shapePoints$: new BehaviorSubject([]),
@@ -36,7 +37,6 @@ export class ShapeBuilderComponent implements OnInit {
     }
   }
 
-  
 }
 export interface Ipoints{
   x:number;
