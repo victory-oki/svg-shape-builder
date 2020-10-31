@@ -1,0 +1,56 @@
+@import '../../partials/variables';
+
+.artboard{
+    width: 60rem;
+    background: #fff;
+    border-radius: 4px;
+    position: relative;
+}
+.vertical-axis, .horizontal-axis{
+    fill: none;
+    stroke: $color-grey-2;
+    stroke-width: 1px;
+}
+.path{
+    fill: none;
+    stroke: $color-grey-3;
+    stroke-width: 1px;
+    stroke-linecap: round;
+}
+.labels{
+    fill: $color-grey-3;
+}
+.horizontal-axis{}
+
+.path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 3s ease-in forwards;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+}
+  
+@keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+}
+
+.point{
+    fill: #fff;
+    stroke: #555;
+    stroke-width: 1px;
+    stroke-opacity: .3;
+    cursor: pointer;
+
+    &:hover{
+        stroke: #00E676;
+        stroke-opacity: 1;
+    }
+}
+
+.artboard__name{
+    color: #555;
+    position: absolute;
+    top: -2rem;
+}

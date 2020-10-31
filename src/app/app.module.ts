@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShapeBuilderComponent } from './shape-builder/shape-builder.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlsComponent } from './controls/controls.component';
+import { ArtboardComponent } from './artboard/artboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShapeBuilderComponent
+    ShapeBuilderComponent,
+    ControlsComponent,
+    ArtboardComponent
   ],
   imports: [
     BrowserModule,

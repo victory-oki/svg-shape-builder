@@ -6,14 +6,17 @@
     .canvas{
         flex: 1;
         height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background:$color-grey-1;
+        padding: 4rem;
+        background: #f3f3f3;
+        max-height: 100%;
+        overflow: auto;
         &__container{
-            width: 60rem;
-            background: #fff;
-            border-radius: 4px;
+            max-width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
+            justify-items: center;
+            grid-gap: 4rem;
+            width: 132rem;
         }
     }
     .controls{
@@ -21,87 +24,22 @@
         height: 100%;
         background: $color-dark;
         padding: 4rem;
-    }
-    .vertical-axis, .horizontal-axis{
-        fill: none;
-        stroke: $color-grey-2;
-        stroke-width: 1px;
-    }
-    .path{
-        fill: none;
-        stroke: $color-grey-3;
-        stroke-width: 1px;
-        stroke-linecap: round;
-    }
-    .labels{
-        fill: $color-grey-3;
-    }
-    .horizontal-axis{}
-}
-
-.path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: dash 3s ease-in forwards;
-    animation-iteration-count: infinite;
-    animation-delay: 1s;
-}
-  
-@keyframes dash {
-    to {
-      stroke-dashoffset: 0;
-    }
-}
-
-.input{
-    &__group{
-
-    }
-    &__label{
-        font-size: 1.4rem;
-        font-weight: bold;
-        color: #fff;
-        margin-bottom: 2rem;
-    }
-    &__field{
-        height: 4.8rem;
-        width: 100%;
-        background: rgb(43, 43, 43);
-        color: #fff;
-        border-radius: .5rem;
-        border: unset;
-        padding: 0 2.2rem;
-    }
-}
-.grid-col-2{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2rem;
-}
-.form{
-    & >:not(:last-child){
-        margin-bottom: 2rem;
-    }
-}
-.btn{
-    border: unset;
-    cursor: pointer;
-    &--primary{
-        padding: 1rem 2rem;
-        background: rgb(56, 56, 56);
-        border: none;
-        border-radius: 50px;
-        transition: all .2s ease-in;
-        font-weight: normal;
-        font-size: 1.2rem;
-        letter-spacing: 1.28px;
-        letter-spacing: .08rem;
-        color: #fff;
-        &:hover{
-            // background: #00E676;
+        & > :not(:last-child){
+            margin-bottom: 3rem;
         }
     }
-    &:focus{
-        outline: unset;
+}
+
+.add-btn {
+    display: flex;
+    margin-top: 3rem;
+    cursor: pointer;
+    & > :not(:last-child) {
+      margin-right: 1.5rem;
+    }
+    .item__icon{
+        &--text{
+            color: #fff;
+        }
     }
 }

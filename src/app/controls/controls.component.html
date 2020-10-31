@@ -1,0 +1,46 @@
+<form class="form" [formGroup] = "shapeForm">
+    <div class="input__group">
+        <div class="input__label">Select Shape</div>
+        <select name="shape" id="" formControlName="shapeType" class="input__field" (change)="onshapeChange($event)">
+            <option value="circle">circle</option>
+            <option value="ellipse">ellipse</option>
+            <option value="star">star</option>
+            <option value="polygon">polygon</option>
+        </select>
+    </div>
+    <div class="grid-col-2" *ngIf ="(currentShape$ | async) === 'circle'">
+        <div class="input__group">
+            <div class="input__label">Center point X</div>
+            <input type="number" placeholder="" formControlName="circleCenterx" class="input__field">
+        </div>
+        <div class="input__group">
+            <div class="input__label">Center point Y</div>
+            <input type="number" placeholder="" formControlName="circleCentery" class="input__field">
+        </div>
+        <div class="input__group">
+            <div class="input__label">Radius</div>
+            <input type="number" formControlName="circleRadius" placeholder="" class="input__field">
+        </div>
+    </div>
+    <div class="grid-col-2" *ngIf ="(currentShape$ | async) === 'polygon'">
+        <div class="input__group">
+            <div class="input__label">Input No of sides</div>
+            <input type="number" placeholder="" formControlName="polygonNoOfSides" class="input__field">
+        </div>
+        <div class="input__group">
+            <div class="input__label">Input Length</div>
+            <input type="number" formControlName="polygonLengthOfSides" placeholder="" class="input__field">
+        </div>
+    </div>
+    <div class="grid-col-2" *ngIf ="(currentShape$ | async) === 'star'">
+        <div class="input__group">
+            <div class="input__label">Input No of sides</div>
+            <input type="number" placeholder="" formControlName="starNoOfSides" class="input__field">
+        </div>
+        <div class="input__group">
+            <div class="input__label">Input Length</div>
+            <input type="number" formControlName="starLengthOfSides" placeholder="" class="input__field">
+        </div>
+    </div>
+    <button class="btn btn--primary" (click)="applyChanges()">Apply Changes</button>
+</form>
