@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ControlsComponent } from './controls/controls.component';
 import { ArtboardComponent } from './artboard/artboard.component';
 import { CollapsibleWellComponent } from './collapsible-well/collapsible-well.component';
-
+import { ColorPickerModule } from 'ngx-color-picker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +21,8 @@ import { CollapsibleWellComponent } from './collapsible-well/collapsible-well.co
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ColorPickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -43,7 +43,7 @@
     stroke-opacity: .3;
     cursor: pointer;
 
-    &:hover{
+    &:hover, &.active{
         stroke: #00E676;
         stroke-opacity: 1;
     }

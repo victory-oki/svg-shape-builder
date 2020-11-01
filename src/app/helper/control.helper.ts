@@ -6,7 +6,7 @@ export const generateStarPoints = (n,x,y,r):Ipoints[]=>{
     let innertheta = 2*Math.PI/(2*n);
     let dTheta = 2*Math.PI/n;
     points.push({ x:(x + (r/2)*Math.cos(theta + innertheta)), y:(y + (r/2)*Math.sin(theta + innertheta)) });
-    for(let i=1; i < n+1; i++){
+    for(let i=1; i < n; i++){
       theta += dTheta;
       points.push({ x:(x + r*Math.cos(theta)), y:(y + r*Math.sin(theta)) });
       points.push({ x:(x + (r/2)*Math.cos(theta + innertheta)), y:(y + (r/2)*Math.sin(theta + innertheta)) });
@@ -14,9 +14,10 @@ export const generateStarPoints = (n,x,y,r):Ipoints[]=>{
     return points;
 }
 
-export const generatePolygonPoints = (n,x,y,r):Ipoints[]=>{
+export const generatePolygonPoints = (n,x,y,s):Ipoints[]=>{
+  let r = (0.5 * s) * Math.sqrt(3)
+  let theta = Math.PI/2;
     let points = [{x, y:y+r}];
-    let theta = Math.PI/2;
     let dTheta = 2*Math.PI/n;
 
     for(let i=1; i < n; i++){
@@ -33,7 +34,6 @@ export const createCircle = (centerX, centerY, radius)=>{
     circle.setAttribute("r", `${radius}`);
     circle.classList.add('path')
     circle.setAttribute("fill", `none`);
-    circle.setAttribute("stroke", `#555`);
     return circle
 }
 
@@ -46,7 +46,6 @@ export const createPolygon = (points)=>{
     polygon.setAttribute("points", `${pointStr}`);
     polygon.classList.add('path');
     polygon.setAttribute("fill", `none`);
-    polygon.setAttribute("stroke", `#555`);
     console.log("these are the points >>>", polygon)
     return polygon
   }

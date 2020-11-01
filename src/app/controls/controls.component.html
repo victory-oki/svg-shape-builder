@@ -8,7 +8,7 @@
             <option value="polygon">polygon</option>
         </select>
     </div>
-    <div class="grid-col-2" *ngIf ="(currentShape$ | async) === 'circle'">
+    <div class="grid-col lg" *ngIf ="(currentShape$ | async) === 'circle'">
         <div class="input__group">
             <div class="input__label">Center point X</div>
             <input type="number" placeholder="" formControlName="circleCenterx" class="input__field">
@@ -22,7 +22,7 @@
             <input type="number" formControlName="circleRadius" placeholder="" class="input__field">
         </div>
     </div>
-    <div class="grid-col-2" *ngIf ="(currentShape$ | async) === 'polygon'">
+    <div class="grid-col lg" *ngIf ="(currentShape$ | async) === 'polygon'">
         <div class="input__group">
             <div class="input__label">Input No of sides</div>
             <input type="number" placeholder="" formControlName="polygonNoOfSides" class="input__field">
@@ -31,8 +31,19 @@
             <div class="input__label">Input Length</div>
             <input type="number" formControlName="polygonLengthOfSides" placeholder="" class="input__field">
         </div>
+        <ng-container *ngIf = "(selectedPoints$ | async)">
+            <div class="input__group">
+                <div class="input__label">x co-ordinate</div>
+                <input type="number" placeholder="" formControlName="xCoordinaate" class="input__field">
+            </div>
+            <div class="input__group">
+                <div class="input__label">y co-ordinate</div>
+                <input type="number" formControlName="yCoordinaate" placeholder="" class="input__field">
+            </div>
+            <button class="btn__action"></button>
+        </ng-container>
     </div>
-    <div class="grid-col-2" *ngIf ="(currentShape$ | async) === 'star'">
+    <div class="grid-col lg" *ngIf ="(currentShape$ | async) === 'star'">
         <div class="input__group">
             <div class="input__label">Input No of sides</div>
             <input type="number" placeholder="" formControlName="starNoOfSides" class="input__field">
@@ -41,6 +52,70 @@
             <div class="input__label">Input Length</div>
             <input type="number" formControlName="starLengthOfSides" placeholder="" class="input__field">
         </div>
+        <ng-container *ngIf = "(selectedPoints$ | async)">
+            <div class="input__group">
+                <div class="input__label">x co-ordinate</div>
+                <input type="number" placeholder="" formControlName="xCoordinaate" class="input__field">
+            </div>
+            <div class="input__group">
+                <div class="input__label">y co-ordinate</div>
+                <input type="number" formControlName="yCoordinaate" placeholder="" class="input__field">
+            </div>
+            <button class="btn__action"></button>
+        </ng-container>
     </div>
-    <button class="btn btn--primary" (click)="applyChanges()">Apply Changes</button>
+    <div class="color__container">
+        <div class="color__fill">
+            <span>Fill</span>
+            <input [style.background]="fill$ | async" class="input__color input__color--fill"
+            [colorPicker]="fill$ | async"
+            [value] = "fillFullTransparent()?'🚫':''"
+            [cpOutputFormat]="'rgba'"
+            (colorPickerChange)="onFillColorChange($event)"/>
+        </div>
+        <div class="color__stroke">
+            <span>Stroke</span>
+            <input [style.borderColor]="stroke$ | async" class="input__color input__color--stroke"
+            [class.none] = "(stroke$ | async) === 'rgba(255,255,255,0)'"
+            [colorPicker]="stroke$ | async"
+            [cpOutputFormat]="'rgba'"
+            [value] = "strokeFullTransparent()?'🚫':''"
+            (colorPickerChange)="onStrokeColorChange($event)"/>
+        </div>
+    </div>
+    <div class="color__container">
+            <span>show grid</span>
+            <div class="card-check form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  name="checkboxes"
+                  type="checkbox"
+                  id="grid"
+                  value="true"
+                  formControlName = "showGrid"
+                />
+                <label class="form-check-label" for="grid">
+                  <div class="checkbox">
+                    <span>
+                      <svg
+                        width="11"
+                        height="9"
+                        viewBox="0 0 11 9"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1.7 5.3C1.3 4.9 0.7 4.9 0.3 5.3C-0.1 5.7 -0.1 6.3 0.3 6.7L2.3 8.7C2.5 8.9 2.7 9 3 9C3.3 9 3.5 8.9 3.7 8.7L10.7 1.7C11.1 1.3 11.1 0.7 10.7 0.3C10.3 -0.1 9.7 -0.1 9.3 0.3L3 6.6L1.7 5.3Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </label>
+            </div>
+    </div>
+    <div class="btn__group">
+        <button class="btn btn--primary" (click)="applyChanges()">Apply Changes</button>
+        <button class="btn btn--danger" (click) = "deleteArtboard()" *ngIf = "index > 0">Delete Shape</button>
+    </div>
 </form>

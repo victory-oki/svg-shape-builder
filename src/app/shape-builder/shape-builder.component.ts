@@ -33,10 +33,16 @@ export class ShapeBuilderComponent implements OnInit {
     return {
       shapePoints$: new BehaviorSubject([]),
       shape$: new BehaviorSubject(''),
-      currentShape$: new BehaviorSubject('circle')
+      currentShape$: new BehaviorSubject('circle'),
+      selectedPoints$: new BehaviorSubject(''),
+      fill$:new BehaviorSubject('rgba(255,255,255,0)'),
+      stroke$:new BehaviorSubject('#555'),
+      showGrid$:new BehaviorSubject(true)
     }
   }
-
+  deleteArtBoard(value){
+    this.artboards.splice(value,1)
+  }
 }
 export interface Ipoints{
   x:number;

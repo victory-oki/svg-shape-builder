@@ -18,4 +18,8 @@ export interface IArtboard{
   shapePoints$:BehaviorSubject<Ipoints[]>;
   shape$:BehaviorSubject<any>;
   currentShape$:BehaviorSubject<string>;
+  selectedPoints$:BehaviorSubject<any>
+  fill$:BehaviorSubject<string>;
+  stroke$:BehaviorSubject<string>;
+  showGrid$:BehaviorSubject<boolean>;
 }
