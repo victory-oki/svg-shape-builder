@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
-import { IArtboard, IState } from '../services/state/state.service';
+import { BehaviorSubject, combineLatest, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { IArtboard, ILsState, Ipoints } from '../models/index.models';
+import { LocalstorageService } from '../services/localstorage/localstorage.service';
 
 @Component({
   selector: 'app-shape-builder',
@@ -9,24 +11,25 @@ import { IArtboard, IState } from '../services/state/state.service';
   styleUrls: ['./shape-builder.component.scss']
 })
 export class ShapeBuilderComponent implements OnInit {
-  @ViewChild('canvas') canvas: ElementRef<SVGGElement>;
   shapePoints$:BehaviorSubject<Ipoints[]> = new BehaviorSubject([])
   shape$:BehaviorSubject<any> = new BehaviorSubject('')
   currentShape$:BehaviorSubject<string> = new BehaviorSubject('circle')
   shapeForm: FormGroup
   shape:string
   currentShape: any;
-  artboards: IArtboard[] = [this.createNewArtBoard()];
-  constructor(private fb:FormBuilder) { 
-
+  artboards: IArtboard[] = [];
+  state: IArtboard[] = []
+  constructor(private fb:FormBuilder, private ls:LocalstorageService) { 
+    this.InitializeArtboards()
   }
 
   ngOnInit(): void {
     
   }
-  addNewArtBoard(){
+  addNewArtBoard():void{
     let artboard = this.createNewArtBoard()
     this.artboards.push(artboard)
+    this.ls.pushToLocalStorage(artboard)
   }
 
   createNewArtBoard():IArtboard{
@@ -35,16 +38,41 @@ export class ShapeBuilderComponent implements OnInit {
       shape$: new BehaviorSubject(''),
       currentShape$: new BehaviorSubject('circle'),
       selectedPoints$: new BehaviorSubject(''),
-      fill$:new BehaviorSubject('rgba(255,255,255,0)'),
+      fill$:new BehaviorSubject('none'),
       stroke$:new BehaviorSubject('#555'),
       showGrid$:new BehaviorSubject(true)
     }
   }
-  deleteArtBoard(value){
-    this.artboards.splice(value,1)
+
+  deleteArtBoard(index):void{
+    this.artboards.splice(index,1)
+    this.ls.deleteFromLocalStorage(index)
   }
-}
-export interface Ipoints{
-  x:number;
-  y:number;
-}
+
+  InitializeArtboards():void{
+    let artboards = this.ls.getLocalStorage()
+    if(artboards){
+      this.setState(artboards);
+    }
+    else{
+      this.ls.setLocalStorage([])
+      this.addNewArtBoard()
+    }
+  }
+
+  updateLSPersistence(index){
+    console.log(this.artboards[index])
+    this.ls.updateLocalStorage(this.artboards[index],index)
+  }
+
+  setState(state:ILsState[]){
+    let length = state.length
+    for(let i=0; i < length ; i++){
+      let artboard = this.createNewArtBoard()
+      this.artboards.push(artboard)
+      this.artboards[i].shape$.next(state[i].shape$)
+      this.artboards[i].fill$.next(state[i].fill$)
+      this.artboards[i].stroke$.next(state[i].stroke$)
+    }
+  }
+} 

@@ -1,32 +1,44 @@
 <main class="container">
-    <section class="canvas">
-        <div class="canvas__container">
-            <app-artboard [artboard]="artboard" [title] = "i + 1" *ngFor = "let artboard of artboards; let i = index"></app-artboard> 
-        </div>
-    </section>
-    <section class="controls">
-        <collapsible-well *ngFor = "let artboard of artboards; let i = index" [title] = "i + 1">
-            <app-controls [artboard]="artboard" [index] = 'i' (onDeleteArtBoard)="deleteArtBoard(i)"></app-controls>
-        </collapsible-well>
-        <div class="add-btn" (click)="addNewArtBoard()" >
-            <span class="item__icon">
-              <svg
-                fill="none"
-                height="24"
-                viewBox="0 0 26 26"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="12" cy="12" r="11.5" stroke="#00E676" stroke-width= "2" />
-                <path
-                  clip-rule="evenodd"
-                  d="M16.6673 12.667H12.6673V16.667H11.334V12.667H7.33398V11.3337H11.334V7.33366H12.6673V11.3337H16.6673V12.667Z"
-                  fill=" #fff"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span class="item__icon--text">Add Shape</span>
-          </div>
-    </section>
+  <section class="canvas">
+    <div class="canvas__container">
+      <app-artboard
+        [artboard]="artboard"
+        [title]="i + 1"
+        *ngFor="let artboard of artboards; let i = index"
+        (onUpdateLSPersistence)="updateLSPersistence(i)"
+      ></app-artboard>
+    </div>
+  </section>
+  <section class="controls">
+    <collapsible-well
+      *ngFor="let artboard of artboards; let i = index"
+      [title]="i + 1"
+    >
+      <app-controls
+        [artboard]="artboard"
+        [index]="i"
+        (onDeleteArtBoard)="deleteArtBoard(i)"
+      ></app-controls>
+    </collapsible-well>
+    <div class="add-btn" (click)="addNewArtBoard()">
+      <span class="item__icon">
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 26 26"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="12" cy="12" r="11.5" stroke="#00E676" stroke-width="2" />
+          <path
+            clip-rule="evenodd"
+            d="M16.6673 12.667H12.6673V16.667H11.334V12.667H7.33398V11.3337H11.334V7.33366H12.6673V11.3337H16.6673V12.667Z"
+            fill=" #fff"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <span class="item__icon--text">Add Shape</span>
+    </div>
+  </section>
 </main>

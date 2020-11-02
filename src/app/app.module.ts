@@ -15,7 +15,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     ShapeBuilderComponent,
     ControlsComponent,
     ArtboardComponent,
-    CollapsibleWellComponent
+    CollapsibleWellComponent,
   ],
   imports: [
     BrowserModule,

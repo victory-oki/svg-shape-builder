@@ -1,4 +1,5 @@
-import { Ipoints } from '../shape-builder/shape-builder.component';
+import { Ipoints } from '../models/index.models';
+
 
 export const generateStarPoints = (n,x,y,r):Ipoints[]=>{
     let points = [{x, y:y+r}];
@@ -34,7 +35,18 @@ export const createCircle = (centerX, centerY, radius)=>{
     circle.setAttribute("r", `${radius}`);
     circle.classList.add('path')
     circle.setAttribute("fill", `none`);
-    return circle
+    return circle.outerHTML
+}
+
+export const createEllipse = (centerX, centerY, radiusx, radiusy)=>{
+  const ellipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+  ellipse.setAttribute("cx", `${centerX}`);
+  ellipse.setAttribute("cy", `${centerY}`);
+  ellipse.setAttribute("rx", `${radiusx}`);
+  ellipse.setAttribute("ry", `${radiusy}`);
+  ellipse.classList.add('path') 
+  ellipse.setAttribute("fill", `none`);
+  return ellipse
 }
 
 export const createPolygon = (points)=>{
@@ -48,7 +60,7 @@ export const createPolygon = (points)=>{
     polygon.setAttribute("fill", `none`);
     console.log("these are the points >>>", polygon)
     return polygon
-  }
+}
 
 export const createStar = (points)=>{
     const star = document.createElementNS("http://www.w3.org/2000/svg", "path");

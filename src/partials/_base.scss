@@ -13,15 +13,20 @@ html {
 }
 
 .path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: dash 3s ease-in forwards;
-    animation-iteration-count: 1;
-    animation-delay: 1s;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 3s ease-in forwards;
+  animation-iteration-count: 1;
+  animation-delay: 1s;
 }
-  
+
+.text-error {
+  font-size: 12px;
+  color: red;
+}
+
 @keyframes dash {
-    to {
-      stroke-dashoffset: 0;
-    }
+  to {
+    stroke-dashoffset: 0;
+  }
 }

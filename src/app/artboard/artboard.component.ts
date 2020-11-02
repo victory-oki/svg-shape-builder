@@ -1,18 +1,19 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { IArtboard } from '../services/state/state.service';
-import { Ipoints } from '../shape-builder/shape-builder.component';
+import { IArtboard, Ipoints } from '../models/index.models';
+import { BaseComponent } from '../shared/base-component/base-component.component';
 
 @Component({
   selector: 'app-artboard',
   templateUrl: './artboard.component.html',
   styleUrls: ['./artboard.component.scss']
 })
-export class ArtboardComponent implements OnInit, OnChanges {
+export class ArtboardComponent extends BaseComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @ViewChild('canvas') canvas: ElementRef<SVGGElement>;
   @Input() artboard:IArtboard
   @Input() title
+  @Output() onUpdateLSPersistence = new EventEmitter();
   shapePoints$:BehaviorSubject<Ipoints[]>
   shape$:BehaviorSubject<any>
   currentShape$:BehaviorSubject<string>
@@ -22,19 +23,18 @@ export class ArtboardComponent implements OnInit, OnChanges {
   stroke$: BehaviorSubject<string>;
   showGrid$: BehaviorSubject<boolean>;
   constructor() { 
+    super()
   }
 
   ngOnInit(): void {
-    this.shape$.asObservable().subscribe(
-      data=>{
-        if(data){
-          this.canvas.nativeElement.innerHTML = ''
-          this.canvas.nativeElement.insertAdjacentElement('beforeend', data)
-        }
-      }
-    )
-    this.onColorChange()
+    this.onColorChange();
+    this.updateLsPersistence();
   }
+
+  ngAfterViewInit(){
+    this.onShapeChange();
+  }
+
   ngOnChanges(){
     this.shapePoints$ = this.artboard.shapePoints$
     this.shape$ = this.artboard.shape$
@@ -45,6 +45,7 @@ export class ArtboardComponent implements OnInit, OnChanges {
     this.stroke$ = this.artboard.stroke$
     this.showGrid$ = this.artboard.showGrid$
   }
+
   selectPoint(point, index){
     this.selectedIndex = this.selectedIndex !== index? index : -1
     if(this.selectedIndex === -1){
@@ -55,22 +56,62 @@ export class ArtboardComponent implements OnInit, OnChanges {
       this.selectedPoints$.next({...point, index})
     }
   }
+
   onColorChange(){
-    combineLatest([this.fill$, this.stroke$, this.shape$])
-    .pipe(
-      distinctUntilChanged(),
-      debounceTime(500),
-      switchMap((data) => {
-        return of(data)
-      })
-    ).subscribe(
-      ([fill,stroke])=>{
-        console.log(fill,stroke);
-        if(this.canvas.nativeElement.firstChild){
-          (this.canvas.nativeElement.firstChild as HTMLElement).setAttribute('fill',fill);
-          (this.canvas.nativeElement.firstChild as HTMLElement).setAttribute('stroke',stroke)
+    this.addSubscription(
+      combineLatest([this.fill$, this.stroke$, this.shape$])
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(500),
+        switchMap((data) => {
+          return of(data)
+        })
+      ).subscribe(
+        ([fill,stroke])=>{
+          console.log(fill,stroke);
+          if(this.canvas.nativeElement.firstChild){
+            (this.canvas.nativeElement.firstChild as HTMLElement).setAttribute('fill',fill);
+            (this.canvas.nativeElement.firstChild as HTMLElement).setAttribute('stroke',stroke)
+          }
         }
-      }
+      )
     )
+  }
+
+  onShapeChange(){
+    this.addSubscription(
+      this.shape$.subscribe(
+        data=>{
+          if(data){
+            this.canvas.nativeElement.innerHTML = ''
+            console.log(typeof data,data)
+            let shape:SVGElement = document.createElementNS("http://www.w3.org/2000/svg", null);
+            this.canvas.nativeElement.insertAdjacentElement('beforeend', shape);
+            (this.canvas.nativeElement.firstChild as HTMLElement).outerHTML = data
+          }
+        }
+      )
+    )
+  }
+
+  updateLsPersistence(){
+    this.addSubscription(
+      combineLatest([this.fill$, this.stroke$, this.shape$, this.showGrid$])
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(500),
+        switchMap((data) => {
+          return of(data)
+        })
+      ).subscribe(
+        _=>{
+          this.onUpdateLSPersistence.emit()
+        }
+      )
+    )
+  }
+
+  ngOnDestroy(){
+    this.clearSubscription()
   }
 }
