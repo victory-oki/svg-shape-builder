@@ -46,7 +46,7 @@ export const createEllipse = (centerX, centerY, radiusx, radiusy)=>{
   ellipse.setAttribute("ry", `${radiusy}`);
   ellipse.classList.add('path') 
   ellipse.setAttribute("fill", `none`);
-  return ellipse
+  return ellipse.outerHTML
 }
 
 export const createPolygon = (points)=>{
@@ -58,8 +58,7 @@ export const createPolygon = (points)=>{
     polygon.setAttribute("points", `${pointStr}`);
     polygon.classList.add('path');
     polygon.setAttribute("fill", `none`);
-    console.log("these are the points >>>", polygon)
-    return polygon
+    return polygon.outerHTML
 }
 
 export const createStar = (points)=>{
@@ -72,6 +71,5 @@ export const createStar = (points)=>{
     star.classList.add('path');
     star.setAttribute("fill", `none`);
     star.setAttribute("stroke", `#555`);
-    console.log("these are the points >>>", star)
-    return star
+    return star.outerHTML
 }

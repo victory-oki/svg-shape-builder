@@ -24,7 +24,7 @@ export class ShapeBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    console.log(this.artboards)
   }
   addNewArtBoard():void{
     let artboard = this.createNewArtBoard()
