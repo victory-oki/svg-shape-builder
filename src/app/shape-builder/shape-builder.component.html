@@ -20,7 +20,11 @@
         (onDeleteArtBoard)="deleteArtBoard(i)"
       ></app-controls>
     </collapsible-well>
-    <div class="add-btn" (click)="addNewArtBoard()">
+    <div
+      class="add-btn"
+      (click)="addNewArtBoard()"
+      *ngIf="artboards.length < 10"
+    >
       <span class="item__icon">
         <svg
           fill="none"
