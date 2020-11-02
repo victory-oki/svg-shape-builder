@@ -8,6 +8,7 @@ export interface IArtboard{
   fill$:BehaviorSubject<string>;
   stroke$:BehaviorSubject<string>;
   showGrid$:BehaviorSubject<boolean>;
+  showPointers$ :BehaviorSubject<boolean>;
 }
 
 export interface ILsState{

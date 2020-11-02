@@ -363,34 +363,67 @@
     </div>
   </div>
   <div class="color__container">
-    <span>show grid</span>
-    <div class="card-check form-check form-check-inline">
-      <input
-        class="form-check-input"
-        name="checkboxes"
-        type="checkbox"
-        id="grid"
-        value="true"
-        formControlName="showGrid"
-      />
-      <label class="form-check-label" for="grid">
-        <div class="checkbox">
-          <span>
-            <svg
-              width="11"
-              height="9"
-              viewBox="0 0 11 9"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1.7 5.3C1.3 4.9 0.7 4.9 0.3 5.3C-0.1 5.7 -0.1 6.3 0.3 6.7L2.3 8.7C2.5 8.9 2.7 9 3 9C3.3 9 3.5 8.9 3.7 8.7L10.7 1.7C11.1 1.3 11.1 0.7 10.7 0.3C10.3 -0.1 9.7 -0.1 9.3 0.3L3 6.6L1.7 5.3Z"
-                fill="white"
-              />
-            </svg>
-          </span>
-        </div>
-      </label>
+    <div class="flags">
+      <span>show grid</span>
+      <div class="card-check form-check form-check-inline">
+        <input
+          class="form-check-input"
+          name="checkboxes"
+          type="checkbox"
+          id="grid"
+          value="true"
+          formControlName="showGrid"
+        />
+        <label class="form-check-label" for="grid">
+          <div class="checkbox">
+            <span>
+              <svg
+                width="11"
+                height="9"
+                viewBox="0 0 11 9"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.7 5.3C1.3 4.9 0.7 4.9 0.3 5.3C-0.1 5.7 -0.1 6.3 0.3 6.7L2.3 8.7C2.5 8.9 2.7 9 3 9C3.3 9 3.5 8.9 3.7 8.7L10.7 1.7C11.1 1.3 11.1 0.7 10.7 0.3C10.3 -0.1 9.7 -0.1 9.3 0.3L3 6.6L1.7 5.3Z"
+                  fill="white"
+                />
+              </svg>
+            </span>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="flags" *ngIf="(shapePoints$ | async).length > 0">
+      <span>show pointers</span>
+      <div class="card-check form-check form-check-inline">
+        <input
+          class="form-check-input"
+          name="checkboxes"
+          type="checkbox"
+          id="pointer"
+          value="true"
+          formControlName="showPointers"
+        />
+        <label class="form-check-label" for="pointer">
+          <div class="checkbox">
+            <span>
+              <svg
+                width="11"
+                height="9"
+                viewBox="0 0 11 9"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.7 5.3C1.3 4.9 0.7 4.9 0.3 5.3C-0.1 5.7 -0.1 6.3 0.3 6.7L2.3 8.7C2.5 8.9 2.7 9 3 9C3.3 9 3.5 8.9 3.7 8.7L10.7 1.7C11.1 1.3 11.1 0.7 10.7 0.3C10.3 -0.1 9.7 -0.1 9.3 0.3L3 6.6L1.7 5.3Z"
+                  fill="white"
+                />
+              </svg>
+            </span>
+          </div>
+        </label>
+      </div>
     </div>
   </div>
   <div class="btn__group">

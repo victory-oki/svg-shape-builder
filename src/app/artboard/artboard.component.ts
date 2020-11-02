@@ -22,6 +22,7 @@ export class ArtboardComponent extends BaseComponent implements OnInit, OnChange
   fill$: BehaviorSubject<string>;
   stroke$: BehaviorSubject<string>;
   showGrid$: BehaviorSubject<boolean>;
+  showPointers$: BehaviorSubject<boolean>;
   constructor() { 
     super()
   }
@@ -44,6 +45,7 @@ export class ArtboardComponent extends BaseComponent implements OnInit, OnChange
     this.fill$ = this.artboard.fill$
     this.stroke$ = this.artboard.stroke$
     this.showGrid$ = this.artboard.showGrid$
+    this.showPointers$ = this.artboard.showPointers$
   }
 
   selectPoint(point, index){

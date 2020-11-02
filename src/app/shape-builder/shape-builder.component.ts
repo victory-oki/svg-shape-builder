@@ -40,7 +40,8 @@ export class ShapeBuilderComponent implements OnInit {
       selectedPoints$: new BehaviorSubject(''),
       fill$:new BehaviorSubject('none'),
       stroke$:new BehaviorSubject('#555'),
-      showGrid$:new BehaviorSubject(true)
+      showGrid$:new BehaviorSubject(true),
+      showPointers$:new BehaviorSubject(true)
     }
   }
 
@@ -61,7 +62,6 @@ export class ShapeBuilderComponent implements OnInit {
   }
 
   updateLSPersistence(index){
-    console.log(this.artboards[index])
     this.ls.updateLocalStorage(this.artboards[index],index)
   }
 

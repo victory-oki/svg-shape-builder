@@ -28,6 +28,7 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
   fill$: BehaviorSubject<string>;
   stroke$: BehaviorSubject<string>;
   showGrid$: BehaviorSubject<boolean>;
+  showPointers$: BehaviorSubject<boolean>;
   constructor(private fb:FormBuilder) {
     super()
     this.shapeForm = this.fb.group({
@@ -36,15 +37,17 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
       polygonLengthOfSides: [''],
       starNoOfPoints: [''],
       starRadius: [''],
-      circleCenterx: ['',[Validators.required, Validators.max(100), Validators.min(0)]],
-      circleCentery: ['',[Validators.required, Validators.max(100), Validators.min(0)]],
+      circleCenterx: ['50',[Validators.required, Validators.max(100), Validators.min(0)]],
+      circleCentery: ['50',[Validators.required, Validators.max(100), Validators.min(0)]],
       circleRadius: ['', [Validators.required, Validators.max(50), Validators.min(1)]],
       ellipseRadiusx: [''],
       ellipseRadiusy: [''],
       xCoordinate: [''],
       yCoordinate: [''],
-      showGrid: [`true`],
+      showGrid: [true],
+      showPointers: [true],
     })
+  
   }
 
   ngOnChanges(){
@@ -55,6 +58,7 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
     this.fill$ = this.artboard.fill$
     this.stroke$ = this.artboard.stroke$
     this.showGrid$ = this.artboard.showGrid$
+    this.showPointers$ = this.artboard.showPointers$
   }
 
   get shapeType(){ 
@@ -109,6 +113,10 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
     return this.shapeForm.get('showGrid');
   }
 
+  get showPointers(){
+    return this.shapeForm.get('showPointers');
+  }
+
   onshapeChange({target:{value}}){
     this.currentShape$.next(value)
     this.shapeForm.setErrors({ 'invalid': true });
@@ -117,8 +125,9 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
   ngOnInit(): void {
     this.setPoint()
     this.onPointValueChange()
-    this.onHideOrShowGrid()
     this.setAndUpdateFormValidity()
+    this.onPointerToggle()
+    this.onHideOrShowGrid()
   }
 
   applyChanges(){
@@ -198,6 +207,23 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
     )
   }
 
+  onPointerToggle(){
+    this.addSubscription(
+      this.showPointers.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(500),
+        switchMap((data) => {
+          return of(data)
+        })
+      ).subscribe(
+        (data)=>{
+          this.showPointers$.next(data)
+        }
+      )
+    )
+  }
+
   onStrokeColorChange(event){
     this.stroke$.next(event);
     console.log(event, typeof event) 
@@ -264,12 +290,20 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
               this.circleCenterx.setValidators([Validators.required, Validators.max(100), Validators.min(0)])
               this.circleCentery.setValidators([Validators.required, Validators.max(100), Validators.min(0)])
               this.circleRadius.setValidators([Validators.required, Validators.max(50), Validators.min(1)])
+              this.shapeForm.patchValue({
+                circleCenterx:'50',
+                circleCentery: '50'
+              })
               break;
             case ('ellipse'):
               this.circleCenterx.setValidators([Validators.required, Validators.max(100), Validators.min(0)])
               this.circleCentery.setValidators([Validators.required, Validators.max(100), Validators.min(0)])
               this.ellipseRadiusx.setValidators([Validators.required, Validators.max(50), Validators.min(1)])
               this.ellipseRadiusy.setValidators([Validators.required, Validators.max(50), Validators.min(1)])
+                            this.shapeForm.patchValue({
+                circleCenterx:'50',
+                circleCentery: '50'
+              })
               break;
             case ('polygon'):
               this.polygonNoOfSides.setValidators([Validators.required, Validators.max(15), Validators.min(3)])

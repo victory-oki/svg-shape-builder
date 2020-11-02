@@ -99,7 +99,14 @@
     }
   }
 }
-
+.flags {
+  display: flex;
+  align-items: center;
+  & > span {
+    font-size: 1.4rem;
+    margin-right: 1.5rem;
+  }
+}
 .form-check {
   margin-right: 1.5rem;
 }
@@ -114,6 +121,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   & > span {
     position: absolute;
