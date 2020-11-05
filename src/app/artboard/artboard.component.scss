@@ -1,56 +1,66 @@
-@import '../../partials/variables';
+@import "../../partials/variables";
+@import "../../partials/mixin";
 
-.artboard{
-    width: 60rem;
-    background: #fff;
-    border-radius: 4px;
-    position: relative;
+.artboard {
+  width: 60rem;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  @include respond(tab-sm) {
+    width: 50rem;
+  }
+  @include respond(phone) {
+    width: 100%;
+  }
 }
-.vertical-axis, .horizontal-axis{
-    fill: none;
-    stroke: $color-grey-2;
-    stroke-width: 1px;
+.vertical-axis,
+.horizontal-axis {
+  fill: none;
+  stroke: $color-grey-2;
+  stroke-width: 1px;
 }
-.path{
-    fill: none;
-    stroke: $color-grey-3;
-    stroke-width: 1px;
-    stroke-linecap: round;
+.path {
+  fill: none;
+  stroke: $color-grey-3;
+  stroke-width: 1px;
+  stroke-linecap: round;
 }
-.labels{
-    fill: $color-grey-3;
+.labels {
+  fill: $color-grey-3;
 }
-.horizontal-axis{}
+.horizontal-axis {
+}
 
 .path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: dash 3s ease-in forwards;
-    animation-iteration-count: infinite;
-    animation-delay: 1s;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 3s ease-in forwards;
+  animation-iteration-count: infinite;
+  animation-delay: 1s;
 }
-  
+
 @keyframes dash {
-    to {
-      stroke-dashoffset: 0;
-    }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.point{
-    fill: #fff;
-    stroke: #555;
-    stroke-width: 1px;
-    stroke-opacity: .3;
-    cursor: pointer;
+.point {
+  fill: #fff;
+  stroke: #555;
+  stroke-width: 1px;
+  stroke-opacity: 0.3;
+  cursor: pointer;
 
-    &:hover, &.active{
-        stroke: #00E676;
-        stroke-opacity: 1;
-    }
+  &:hover,
+  &.active {
+    stroke: #00e676;
+    stroke-opacity: 1;
+  }
 }
 
-.artboard__name{
-    color: #555;
-    position: absolute;
-    top: -2rem;
+.artboard__name {
+  color: #555;
+  position: absolute;
+  top: -2rem;
 }

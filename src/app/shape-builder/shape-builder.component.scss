@@ -1,46 +1,145 @@
-@import '../../partials/variables';
-.container{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    .canvas{
-        flex: 1;
-        height: 100%;
-        padding: 4rem;
-        background: #f3f3f3;
-        max-height: 100%;
-        overflow: auto;
-        &__container{
-            max-width: 100%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
-            justify-items: center;
-            grid-gap: 4rem;
-            width: 132rem;
-        }
+@import "../../partials/variables";
+@import "../../partials/mixin";
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  @include respond(tab-port) {
+    height: calc(100vh - 6rem);
+    position: fixed;
+    top: 6rem;
+  }
+  .canvas {
+    flex: 1;
+    height: 100%;
+    padding: 4rem;
+    background: #f3f3f3;
+    max-height: 100%;
+    overflow: auto;
+    @include respond(phone) {
+      padding: 4rem 2rem;
     }
-    .controls{
-        width: 35rem;
-        height: 100%;
-        background: $color-dark;
-        padding: 4rem;
-        max-height: 100%;
-        overflow: auto;
-        & > :not(:last-child){
-            margin-bottom: 3rem;
-        }
+    &__container {
+      max-width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
+      justify-items: center;
+      grid-gap: 4rem;
+      width: 132rem;
+      @include respond(tab-port) {
+        width: 100%;
+      }
+      @include respond(tab-sm) {
+        grid-template-columns: repeat(auto-fit, minmax(50rem, 1fr));
+      }
+      @include respond(phone) {
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+      }
     }
+  }
+  .controls {
+    width: 35rem;
+    height: 100%;
+    background: $color-dark;
+    padding: 4rem;
+    max-height: 100%;
+    overflow: auto;
+    @include respond(tab-port) {
+      position: fixed;
+      height: calc(100vh - 6rem);
+      right: 0;
+      top: 6rem;
+      transform: translateX(100%);
+      transition: all 0.3s ease-in-out;
+      &.open {
+        transform: translateX(0);
+        transition: all 0.3s ease-in-out;
+      }
+    }
+    @include respond(phone) {
+      width: 100%;
+    }
+
+    & > :not(:last-child) {
+      margin-bottom: 3rem;
+    }
+  }
 }
 
 .add-btn {
+  display: flex;
+  cursor: pointer;
+  & > :not(:last-child) {
+    margin-right: 1.5rem;
+  }
+  .item__icon {
+    &--text {
+      color: #fff;
+    }
+  }
+}
+
+.header {
+  background: $color-dark;
+  z-index: 10;
+  width: 100%;
+  height: 6rem;
+  padding: 1.7rem 5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  display: none;
+  @include respond(tab-port) {
     display: flex;
-    cursor: pointer;
-    & > :not(:last-child) {
-      margin-right: 1.5rem;
-    }
-    .item__icon{
-        &--text{
-            color: #fff;
-        }
-    }
+  }
+}
+.burger {
+  display: inline-block;
+  width: 2rem;
+  height: 0.2rem;
+  background-color: #ffffff;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &.open {
+    background-color: transparent;
+  }
+}
+
+.burger::before,
+.burger::after {
+  content: "";
+  position: absolute;
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+.burger::before {
+  top: -6px;
+  right: 0;
+  &.open {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+}
+.burger::after {
+  top: 6px;
+  right: 0;
+  &.open {
+    top: 0;
+    transform: rotate(45deg);
+  }
+}
+.burger.open {
+  &::before {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+  &::after {
+    top: 0;
+    transform: rotate(45deg);
+  }
 }

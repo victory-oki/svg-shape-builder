@@ -19,6 +19,7 @@ export class ShapeBuilderComponent implements OnInit {
   currentShape: any;
   artboards: IArtboard[] = [];
   state: IArtboard[] = []
+  isOpen = false;
   constructor(private fb:FormBuilder, private ls:LocalstorageService) { 
     this.InitializeArtboards()
   }
@@ -74,5 +75,10 @@ export class ShapeBuilderComponent implements OnInit {
       this.artboards[i].fill$.next(state[i].fill$)
       this.artboards[i].stroke$.next(state[i].stroke$)
     }
+  }
+
+  //ui function
+  toggleOpen(){
+    this.isOpen = !this.isOpen
   }
 } 
