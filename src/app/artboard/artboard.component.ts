@@ -14,6 +14,7 @@ export class ArtboardComponent extends BaseComponent implements OnInit, OnChange
   @Input() artboard:IArtboard
   @Input() title
   @Output() onUpdateLSPersistence = new EventEmitter();
+  @Output() onPointerSelect = new EventEmitter();
   shapePoints$:BehaviorSubject<Ipoints[]>
   shape$:BehaviorSubject<any>
   currentShape$:BehaviorSubject<string>
@@ -56,6 +57,7 @@ export class ArtboardComponent extends BaseComponent implements OnInit, OnChange
     else{
       console.log({...point, index})
       this.selectedPoints$.next({...point, index})
+      this.onPointerSelect.emit()
     }
   }
 

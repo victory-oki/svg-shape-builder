@@ -21,6 +21,7 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
   @Input() artboard:IArtboard
   @Input() index:number
   @Output() onDeleteArtBoard = new EventEmitter()
+  @Output() onApplyChanges = new EventEmitter()
   shapePoints$:BehaviorSubject<Ipoints[]>
   shape$:BehaviorSubject<any>
   currentShape$:BehaviorSubject<string>
@@ -154,6 +155,7 @@ export class ControlsComponent extends BaseComponent implements OnInit,OnChanges
     }
     console.log("points >>>",points)
     this.shapePoints$.next(points)
+    this.onApplyChanges.emit(true)
   }
 
   onPointValueChange(){
